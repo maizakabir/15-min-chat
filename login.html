@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Home|15-Messenger</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src= "http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src= "/socket.io/socket.io.js"></script>
+</head>
+
+<style>
+    body{
+      background-color: lightblue;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: 90px;
+    }
+</style>
+
+<body>
+  <div class= "container col-md-4 col-md-offset-4">
+    <div class= "panel panel-default">
+      <div class= "panel-body">
+        <form id= "userForm">
+          <div class= "form-group">
+            <label>Username</label>
+            <input class= "form-control" id= "username" placeholder="Enter Username" />
+            <br/>
+            <a href= "/index" class= "btn btn-default">Login<a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
