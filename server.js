@@ -1,26 +1,44 @@
+var http = require ('http');
 var express = require ('express');
 var app = express();
-var server = require ('http').Server(app);
-var io = require ('socket.io').listen(server);
-users = [];
-connections = [];
+var server = http.Server(app);
+var bodyParser = require('body-parser');
+var io = require ('socket.io')(server);
+var mongoose= require ("mongoose");
+var users = [];
+var connections = [];
 
-server.listen (process.env.PORT, process.env.IP, function (){
-    console.log ('Server running');
+//middleware for body-parser
+app.use (bodyParser.json());
+app.use (bodyParser.urlencoded ({extended: true}));
+
+//mongoDB
+// var db;
+var db_url= "mongodb://" + process.env.IP + ":27017";
+mongoose.connect (db_url + '/user', {useNewUrlParser: true});
+// mongoose.connection.once ('open', function (){
+//   console.log( "mongoose connected to mongoDB");
+// });
+mongoose.connection.on ('error', function (){
+  console.log ('could not connect to mongoDB');
 });
 
 
-app.get('/', function (req, res){
-  res.sendFile (__dirname + '/home.html');
-});
+// //connecting mongoose to mongoDB
+// mongoose.connect(db_url + "user");
+// mongoose.connection.on('error', function(){
+//   console.log ("Could not connect to MongoDB");
+// });
 
-app.get('/login', function (req, res){
-  res.sendFile (__dirname + '/login.html');
+app.get('/home', function (req, res){
+  res.render ('home.ejs');
 });
 
 app.get ('/index', function (req, res){
-  res.sendFile (__dirname + '/index.html');
+  res.render ('index.ejs');
 });
+
+require('./routes/user-routes.js')(app);
 
 io.sockets.on ('connection', function (socket){
   connections.push (socket);
@@ -51,4 +69,8 @@ io.sockets.on ('connection', function (socket){
     io.sockets.emit ('get users', users);
   };
 
+});
+
+server.listen (process.env.PORT || process.env.IP  || 'localhost', function (){
+    console.log ('Server running');
 });

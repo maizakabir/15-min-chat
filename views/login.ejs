@@ -1,0 +1,90 @@
+<% include partials/header %>
+<head>
+  <title>Home|15-Messenger</title>
+
+  <style>
+    body{
+      background-color: lightblue;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-top: 90px;
+    }
+    
+    #loginbtn{
+        width: 100%;
+        background-color: steelblue;
+        color: white;
+    }
+    
+    #loginbtn:hover{
+        background-color: lightsteelblue;
+        color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">15-Minute Messenger</a>
+      </div>
+    </div>
+  </nav>
+
+  <br><br><br><br>
+  <!--Login form-->
+  <div class= "container col-md-4 col-md-offset-4">
+    <div class= "panel panel-default" style= "background-color: WhiteSmoke">
+      <div class= "panel-body">
+        <form id= "userForm">
+          <div class= "form-group">
+            <label>Username</label>
+            <input class= "form-control" id= "username" placeholder="Enter Username">
+            <br/>
+            <button class= "btn btn-default" id= "loginbtn">Login</button> 
+            <br>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    
+  <script 
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+  </script>
+  
+ <script>
+    var user = {username:""};
+            
+    $('#loginbtn').click(function(event){
+        user.username = $('#username').val();
+        $.ajax({
+            method: "POST",
+            url: "/user/create",
+            data: user
+        }).done(function(response){
+            document.location = '/index';
+        }).fail(function(response){
+            console.log(response.responseText);
+        });
+            
+    });
+    
+    $('#getUser').click(function(event){
+      $.ajax({
+          method: "GET",
+          url: "/user/list",
+      }).done(function(response){
+          console.log(response);
+      }).fail(function(response){
+          console.log(response.responseText);
+      });
+    });
+  </script>   
+
+<% include partials/footer %>
