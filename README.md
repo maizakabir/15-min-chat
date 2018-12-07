@@ -27,4 +27,4 @@ The following shows once the timer ends or you press stop, session is ended and 
 Shortcomings/not implemented:
 Chat history
 Connecting username database to database with display names and chats
-In the login page, when giving username, some usernames work, some don't. hi, help work, Maiza does not. 
+In the login page, when giving username, some usernames work, some don't. hi, help work, Maiza does not. So the server/database work but there is a slight bug in the system which is why it's not running for all usernames.
